@@ -1,0 +1,97 @@
+/* Login.css */
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f0f4ff; /* Soft light background matching theme */
+}
+
+.login-card {
+  background: white;
+  padding: 3rem 2.5rem;
+  border-radius: 2rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  width: 380px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+}
+
+.login-card h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #4f46e5;
+  margin-bottom: 2rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-form input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+  border-color: #4f46e5;
+}
+
+.login-form button {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
+}
+
+.login-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.45);
+}
+
+.message {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 1rem;
+}
+
+.register-text {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.register-text span {
+  color: #4f46e5;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .login-card {
+    width: 90%;
+    padding: 2rem 1.5rem;
+  }
+}

@@ -19,6 +19,11 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    enum: ["practice", "mandatory"],
+    // required: true
+  },
   options: [
     {
       text: { type: String, required: true },

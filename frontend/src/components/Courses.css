@@ -1,0 +1,86 @@
+/* Courses.css */
+
+.courses-section {
+  padding: 4rem 5%;
+  background: #f0f4f8; /* Light neutral background for contrast */
+}
+
+.courses-heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0d0957; /* Accent purple */
+  margin-bottom: 3rem;
+}
+
+/* Grid layout for courses */
+.course-grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Individual course card */
+.course-card {
+  background: white;
+  min-width: 370px;
+  border-radius: 1rem;
+  padding: 4rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.course-titles {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1b375e;
+  margin-bottom: 1rem;
+}
+
+.course-description {
+  font-size: 0.95rem;
+  color: #374151;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+/* Button */
+.course-btn {
+  padding: 0.7rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
+}
+
+.course-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.45);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .course-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 640px) {
+  .course-card {
+    width: 100%;
+  }
+}

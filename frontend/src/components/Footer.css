@@ -1,0 +1,148 @@
+/* Footer.css */
+.footer {
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: #ffffff;
+  padding: 3rem 5%;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 0px;
+}
+
+/* Decorative gradient circles */
+.footer::before,
+.footer::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.footer::before {
+  width: 300px;
+  height: 300px;
+  background: #93c5fd;
+  top: -120px;
+  left: -100px;
+}
+
+.footer::after {
+  width: 220px;
+  height: 220px;
+  background: #60a5fa;
+  bottom: -80px;
+  right: -70px;
+}
+
+/* Footer container: 3 sections */
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  z-index: 2;
+  position: relative;
+}
+
+/* Brand section */
+.footer-brand {
+  flex: 1;
+  min-width: 220px;
+}
+
+.footer-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.footer-tagline {
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Quick links section */
+.footer-links {
+  flex: 1;
+  min-width: 180px;
+}
+
+.footer-links h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #93c5fd;
+}
+
+/* Social section */
+.footer-social {
+  flex: 1;
+  min-width: 180px;
+}
+
+.footer-social h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.footer-social ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-social li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-social a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: #93c5fd;
+}
+
+/* Bottom copyright */
+.footer-bottom {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
+}

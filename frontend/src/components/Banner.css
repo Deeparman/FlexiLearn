@@ -1,0 +1,93 @@
+/* Banner.css */
+
+.banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 5%;
+  background: linear-gradient(135deg, #f0f4f8, #e0e7ff);
+  gap: 2rem;
+}
+
+.banner-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.banner-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0d0957; /* Same deep purple accent as Navbar */
+  margin: 0;
+  line-height: 1.2;
+}
+
+.banner-quote {
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: #16154b;
+  max-width: 480px;
+}
+
+.get-started-btn {
+  padding: 0.8rem 2rem;
+  width: fit-content;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
+}
+
+.get-started-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.45);
+}
+
+/* Banner right image */
+.banner-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.banner-img:hover {
+  transform: scale(1.03);
+}
+
+/* Responsive for small screens */
+@media (max-width: 1024px) {
+  .banner {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .banner-left {
+    gap: 1rem;
+  }
+
+  .banner-title {
+    font-size: 2rem;
+  }
+
+  .banner-quote {
+    max-width: 100%;
+    font-size: 1rem;
+  }
+}

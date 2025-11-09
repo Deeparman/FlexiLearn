@@ -1,0 +1,103 @@
+/* CoursePage.css */
+
+/* Main container */
+.course-page {
+  padding: 4rem 5%;
+  background: #f5f7ff; /* Soft light background */
+  min-height: 100vh;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Course title */
+.course-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0d0957; /* Accent purple */
+  margin-bottom: 1rem;
+}
+
+/* Course subtitle */
+.course-subtitle {
+  font-size: 1.2rem;
+  color: #4b5563;
+  margin-bottom: 3rem;
+}
+
+/* Container for all course cards */
+.course-card-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Individual course card */
+.course-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2.5rem 1.5rem;
+  width: 350px;
+  min-height: 350px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Card heading */
+.course-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+/* Card paragraph */
+.course-card p {
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+/* Buttons inside cards */
+.course-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
+}
+
+.course-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.45);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .course-card {
+    width: 45%;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .course-card {
+    width: 100%;
+    min-height: 280px;
+  }
+}

@@ -1,3 +1,6 @@
+require("dotenv").config();
+
+
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -9,7 +12,6 @@ const practiceQuizRoutes = require("./routes/practiceQuizRoutes");
 const mandatoryQuizRoutes = require("./routes/mandatoryQuizRoutes");
 const instructorRoutes = require("./routes/instructorRoutes");
 
-dotenv.config();
 const app = express();
 
 app.use(cors());

@@ -16,7 +16,7 @@ exports.getAllStudents = async (req, res) => {
 exports.getStudentResults = async (req, res) => {
   try {
     const { course } = req.query; 
-    const filter = {};
+    const filter = { completed: true }; 
     if (course) filter.course = course;
 
     const results = await MandatoryQuiz.find(filter)
@@ -29,6 +29,7 @@ exports.getStudentResults = async (req, res) => {
       course: quiz.course,
       totalQuestions: quiz.questions.length,
       correctAnswers: quiz.questions.filter(q => q.isCorrect).length,
+      completedAt: quiz.completedAt || quiz.createdAt,
       breakdown: quiz.questions.map(q => ({
         question: q.questionId.questionText,
         selectedAnswer: q.selectedAnswer,

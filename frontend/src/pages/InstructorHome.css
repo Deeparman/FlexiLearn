@@ -1,0 +1,71 @@
+.instructor-home {
+  min-height: 90vh;
+  padding: 50px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.instructor-home h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 30px;
+}
+
+/* 🌟 Tab Buttons */
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.tab-buttons button {
+  background: #e2e8f0;
+  color: #1e293b;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tab-buttons button:hover {
+  background: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+.tab-buttons .active {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+  transform: scale(1.03);
+}
+
+/* 🧩 Tab Content */
+.tab-content {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .tab-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tab-buttons button {
+    width: 100%;
+  }
+
+  .tab-content {
+    padding: 25px;
+  }
+}

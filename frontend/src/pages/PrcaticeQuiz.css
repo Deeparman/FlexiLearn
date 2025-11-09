@@ -1,0 +1,144 @@
+.quiz-container {
+  max-width: 900px; /* increased container size */
+  margin: 50px auto;
+  padding: 20px 30px;
+  font-family: "Inter", sans-serif;
+  color: #1e1e1e;
+}
+
+.quiz-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.question-card {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #2563eb; 
+  color: #fff;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+
+.question-text {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+  background-color: none; 
+  border: none; 
+}
+
+.option-btn:hover {
+  background-color: #1e40af;
+  transform: scale(1.03);
+}
+
+.result-card {
+  text-align: center;
+}
+
+.result-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.result-score {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.answers-list {
+  text-align: left;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answer-item .correct {
+  color: green;
+  font-weight: 600;
+}
+
+.answer-item .wrong {
+  color: red;
+  font-weight: 600;
+}
+.next-btn {
+  margin-top: 25px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #10b981; 
+  color: #fff;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.next-btn:hover {
+  background-color: #059669;
+  transform: scale(1.05);
+}
+.feedback {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .quiz-container {
+    padding: 15px 20px;
+  }
+
+  .quiz-title {
+    font-size: 1.6rem;
+  }
+
+  .question-text {
+    font-size: 1.1rem;
+  }
+
+  .option-btn {
+    font-size: 0.95rem;
+    padding: 10px 16px;
+  }
+}
+@media (max-width: 480px) {
+  .quiz-container {
+    padding: 10px 15px;
+  }
+
+  .quiz-title {
+    font-size: 1.4rem;
+  }
+
+  .question-text {
+    font-size: 1rem;
+  }
+
+  .option-btn {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}

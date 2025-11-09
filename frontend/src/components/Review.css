@@ -1,0 +1,74 @@
+/* Review.css */
+
+.review-section {
+  padding: 5rem 5%;
+  background: #f8fafc; /* Light neutral background */
+}
+
+.review-heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0d0957; /* Same accent purple */
+  margin-bottom: 2rem;
+}
+
+/* Horizontal scroll container */
+.review-grid {
+  display: flex;
+    gap: 2rem; 
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+}
+
+/* Hide scrollbar for modern look */
+.review-grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual cards */
+.review-card {
+  width: 32%; /* Simple fixed width for 3 cards */
+  min-width: 350px;
+    background: white;
+  border-radius: 1rem;
+  padding: 3rem 2rem; /* Increase height by padding */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.review-name {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.review-comment {
+  font-style: italic;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.review-role {
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+  .review-card {
+    width: 48%;
+  }
+}
+
+@media (max-width: 640px) {
+  .review-card {
+    width: 100%;
+  }
+}

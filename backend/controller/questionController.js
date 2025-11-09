@@ -2,7 +2,7 @@ const Question = require("../model/Question");
 
 exports.addQuestion = async (req, res) => {
   try {
-    const { course, level, questionText, options, set } = req.body;
+    const { course, level, questionText, options, set , type} = req.body;
 
     if (!course || set === undefined || !level || !questionText || !options) {
       return res.status(400).json({ message: "All fields are required" });
@@ -20,15 +20,16 @@ exports.addQuestion = async (req, res) => {
       level,
       questionText,
       set,
+      type,
       options,
       createdBy: req.user.id,
     });
 
     await question.save();
     res.status(201).json({ message: "Question added successfully", question });
-  } catch (error) {
-    console.error("Add Question Error:", error);
-    res.status(500).json({ message: "Server error" });
+  } catch (err) {
+    console.log("Error in addQuestion:", err);
+    res.status(400).json({ message: err.message, stack: err.stack });
   }
 };
 
@@ -41,7 +42,6 @@ exports.getInstructorQuestions = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
 
 exports.getQuestionsByCourseAndLevel = async (req, res) => {
   try {

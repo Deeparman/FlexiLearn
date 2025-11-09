@@ -1,5 +1,5 @@
-const MandatoryQuiz = require('../model/MandatoryQuiz');
-const Question = require('../model/Question');
+const MandatoryQuiz = require("../model/MandatoryQuiz");
+const Question = require("../model/Question");
 
 // Start a quiz
 exports.startQuiz = async (req, res) => {
@@ -7,30 +7,39 @@ exports.startQuiz = async (req, res) => {
     const { course } = req.params;
 
     // Check if student already has ongoing quiz
-    let quiz = await MandatoryQuiz.findOne({ student: req.user.id, course, completed: false });
+    let quiz = await MandatoryQuiz.findOne({
+      student: req.user.id,
+      course,
+      completed: false,
+    });
     if (!quiz) {
-      quiz = new MandatoryQuiz({ student: req.user.id, course, currentDifficulty: 'easy' });
+      quiz = new MandatoryQuiz({
+        student: req.user.id,
+        course,
+        currentDifficulty: "easy",
+      });
       await quiz.save();
     }
 
     // Fetch first easy question not yet attempted
-    const attemptedIds = quiz.questions.map(q => q.questionId);
+    const attemptedIds = quiz.questions.map((q) => q.questionId);
     const question = await Question.findOne({
       course,
-      level: 'easy',
-      _id: { $nin: attemptedIds }
+      level: "easy",
+      type: 'mandatory', 
+      _id: { $nin: attemptedIds },
     });
 
-    if (!question) return res.json({ message: 'No questions available.' });
+    if (!question) return res.json({ message: "No questions available." });
 
     res.json({
       quizId: quiz._id,
       question: {
         id: question._id,
-        text: question.text,
-        options: question.options
+        text: question.questionText,
+        options: question.options.map((opt) => opt.text),
       },
-      difficulty: 'easy'
+      difficulty: "easy",
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -44,36 +53,42 @@ exports.submitAnswer = async (req, res) => {
     const { questionId, selectedAnswer } = req.body;
 
     const quiz = await MandatoryQuiz.findById(quizId);
-    if (!quiz || quiz.completed) return res.status(400).json({ message: 'Quiz not found or completed' });
+    if (!quiz || quiz.completed)
+      return res.status(400).json({ message: "Quiz not found or completed" });
 
     const question = await Question.findById(questionId);
-    const isCorrect = question.correctAnswer === selectedAnswer;
+    const correctOption = question.options.find((opt) => opt.isCorrect);
+    const isCorrect = correctOption.text === selectedAnswer;
 
     // Store attempt
     quiz.questions.push({
       questionId,
       selectedAnswer,
       difficulty: quiz.currentDifficulty,
-      isCorrect
+      isCorrect,
     });
 
     // Adaptive logic
     let nextDifficulty = quiz.currentDifficulty;
-    if (quiz.currentDifficulty === 'easy' && isCorrect) nextDifficulty = 'medium';
-    else if (quiz.currentDifficulty === 'medium' && isCorrect) nextDifficulty = 'hard';
-    else if (quiz.currentDifficulty === 'hard' && !isCorrect) nextDifficulty = 'medium';
-    else if (quiz.currentDifficulty === 'medium' && !isCorrect) nextDifficulty = 'easy';
+    if (quiz.currentDifficulty === "easy" && isCorrect)
+      nextDifficulty = "medium";
+    else if (quiz.currentDifficulty === "medium" && isCorrect)
+      nextDifficulty = "hard";
+    else if (quiz.currentDifficulty === "hard" && !isCorrect)
+      nextDifficulty = "medium";
+    else if (quiz.currentDifficulty === "medium" && !isCorrect)
+      nextDifficulty = "easy";
     // easy wrong stays easy, hard correct stays hard
 
     quiz.currentDifficulty = nextDifficulty;
     await quiz.save();
 
     // Fetch next question
-    const attemptedIds = quiz.questions.map(q => q.questionId);
+    const attemptedIds = quiz.questions.map((q) => q.questionId);
     const nextQuestion = await Question.findOne({
       course: quiz.course,
       level: nextDifficulty,
-      _id: { $nin: attemptedIds }
+      _id: { $nin: attemptedIds },
     });
 
     if (!nextQuestion) {
@@ -81,22 +96,27 @@ exports.submitAnswer = async (req, res) => {
       quiz.completedAt = new Date();
       await quiz.save();
 
-      const totalCorrect = quiz.questions.filter(q => q.isCorrect).length;
+      const totalCorrect = quiz.questions.filter((q) => q.isCorrect).length;
       return res.json({
-        message: 'Quiz completed!',
+        message: "Quiz completed!",
         totalQuestions: quiz.questions.length,
         correctAnswers: totalCorrect,
-        breakdown: quiz.questions
+        breakdown: quiz.questions.map((q) => ({
+          question: q.questionId?.questionText || "Unknown",
+          selectedAnswer: q.selectedAnswer,
+          isCorrect: q.isCorrect,
+        })),
+        completedAt: quiz.completedAt, 
       });
     }
 
     res.json({
       question: {
         id: nextQuestion._id,
-        text: nextQuestion.text,
-        options: nextQuestion.options
+        text: nextQuestion.questionText,
+        options: nextQuestion.options.map((opt) => opt.text),
       },
-      difficulty: nextDifficulty
+      difficulty: nextDifficulty,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -106,14 +126,20 @@ exports.submitAnswer = async (req, res) => {
 //  Get completed quiz result
 exports.getResult = async (req, res) => {
   try {
-    const quiz = await MandatoryQuiz.findById(req.params.quizId).populate('questions.questionId');
-    if (!quiz || !quiz.completed) return res.status(400).json({ message: 'Quiz not completed yet' });
+    const quiz = await MandatoryQuiz.findById(req.params.quizId).populate(
+      "questions.questionId"
+    );
+    if (!quiz || !quiz.completed)
+      return res.status(400).json({ message: "Quiz not completed yet" });
 
-    const totalCorrect = quiz.questions.filter(q => q.isCorrect).length;
+    const totalCorrect = quiz.questions.filter((q) => q.isCorrect).length;
     res.json({
       totalQuestions: quiz.questions.length,
       correctAnswers: totalCorrect,
-      breakdown: quiz.questions
+      breakdown: quiz.questions.map((q) => ({
+        questionId: { text: q.questionId.questionText },
+        selectedAnswer: q.selectedAnswer,
+      })),
     });
   } catch (err) {
     res.status(500).json({ message: err.message });

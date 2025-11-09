@@ -1,0 +1,66 @@
+/* Why Us Section */
+.whyus-section {
+  padding: 4rem 5%;
+  background: #f0f4ff; /* Light, soft background */
+  text-align: center;
+}
+
+.whyus-heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0d0957; /* Accent purple */
+  margin-bottom: 3rem;
+}
+
+.whyus-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.whyus-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2.5rem 1.5rem;
+  width: 280px;
+  min-height: 300px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.whyus-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.whyus-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.whyus-desc {
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .whyus-card {
+    width: 45%;
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .whyus-card {
+    width: 100%;
+    min-height: 260px;
+  }
+}

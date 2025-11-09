@@ -1,0 +1,88 @@
+.add-question-form {
+  max-width: 550px;
+  margin: 50px auto;
+  padding: 30px 35px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.add-question-form:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
+}
+
+.add-question-form h2 {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 25px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.add-question-form label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.add-question-form input,
+.add-question-form select,
+.add-question-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-question-form input:focus,
+.add-question-form select:focus,
+.add-question-form textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+.add-question-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.add-question-form button {
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+
+.add-question-form button:hover {
+  background: #1d4ed8;
+  transform: scale(1.02);
+}
+
+.add-question-form button:active {
+  background: #1e40af;
+  transform: scale(0.98);
+}
+
+/* Option spacing */
+.add-question-form input[type="text"] + input[type="text"] {
+  margin-top: 8px;
+}
+.add-question-form .option-group {
+  margin-bottom: 15px;
+}
+.add-question-form .option-group label {
+  margin-bottom: 4px;
+}
