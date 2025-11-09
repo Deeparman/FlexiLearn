@@ -39,7 +39,7 @@ const CoursePage = () => {
           </p>
           <button
             className="course-btn"
-            onClick={() => navigate(`/mandatory-quiz/${courseName}`)}
+            onClick={() => navigate(`/mandatory-quiz-intro/${courseName}`)}
           >
             Start Test
           </button>

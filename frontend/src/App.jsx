@@ -11,10 +11,6 @@ import MandatoryQuizIntro from "./pages/MandatoryQuizIntro";
 import CourseRead from "./pages/CourseRead";
 import InstructorHome from "./pages/InstructorHome";
 
-//  fix mandatory quiz route 
-// build instructor dashboard and routes
-//  upload demo quiz for each subject
-
 const App = () => {
   return (
     <>
@@ -33,7 +29,7 @@ const App = () => {
             element={<PracticeQuiz />}
           />
           <Route
-            path="/mandatory-quiz/:course"
+            path="/mandatory-quiz-intro/:course"
             element={<MandatoryQuizIntro />}
           />
           <Route path="/mandatory-quiz/:quizId" element={<MandatoryQuiz />} />

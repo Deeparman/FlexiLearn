@@ -16,38 +16,29 @@ const MandatoryQuiz = () => {
   const [quizOver, setQuizOver] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Load the first question for the quiz
+  // Load first question (comes from MandatoryQuizIntro -> start API)
   useEffect(() => {
     const fetchFirstQuestion = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await API.get(`/mandatory-quiz/result/${quizId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (res.data && res.data.completed) {
-          setResult(res.data);
-          setQuizOver(true);
-          setLoading(false);
-          return;
-        }
-      } catch {}
-      try {
-        const token = localStorage.getItem("token");
+        // No GET /result call here to avoid 400
         const res = await API.post(
           `/mandatory-quiz/answer/${quizId}`,
-          {},
+          {}, // First POST with empty body to fetch first question
           { headers: { Authorization: `Bearer ${token}` } }
         );
+
         if (res.data.message === "Quiz completed!") {
           setResult(res.data);
           setQuizOver(true);
-          return;
+        } else {
+          setQuestion(res.data.question);
+          setDifficulty(res.data.difficulty);
         }
-        setQuestion(res.data.question);
-        setDifficulty(res.data.difficulty);
         setLoading(false);
       } catch (err) {
         console.error("Error loading quiz:", err);
+        alert("Failed to load quiz.");
         navigate(-1);
       }
     };
@@ -66,24 +57,29 @@ const MandatoryQuiz = () => {
   }, [timeLeft, quizOver]);
 
   const handleAnswer = async (selectedAnswer) => {
+    if (!question) return;
     try {
       const token = localStorage.getItem("token");
       const res = await API.post(
         `/mandatory-quiz/answer/${quizId}`,
-        { questionId: question.id, selectedAnswer },
+        {
+          questionId: question.id,
+          selectedAnswer,
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (res.data.message === "Quiz completed!") {
         setResult(res.data);
         setQuizOver(true);
-        return;
+        setQuestion(null);
+      } else {
+        setQuestion(res.data.question);
+        setDifficulty(res.data.difficulty);
       }
-
-      setQuestion(res.data.question);
-      setDifficulty(res.data.difficulty);
     } catch (err) {
       console.error("Error submitting answer:", err);
+      alert("Failed to submit answer.");
     }
   };
 
@@ -96,8 +92,10 @@ const MandatoryQuiz = () => {
       setResult(res.data);
     } catch (err) {
       console.error("Error ending quiz:", err);
+      alert("Failed to fetch quiz results.");
     }
     setQuizOver(true);
+    setQuestion(null);
   };
 
   if (loading) return <p>Loading quiz...</p>;
@@ -117,7 +115,8 @@ const MandatoryQuiz = () => {
             <ul>
               {result.breakdown.map((item, i) => (
                 <li key={i}>
-                  <strong>Q{i + 1}:</strong> {item.questionId.text} <br />
+                  <strong>Q{i + 1}:</strong>{" "}
+                  {item.questionId?.text } <br />
                   <em>Selected:</em> {item.selectedAnswer}
                 </li>
               ))}

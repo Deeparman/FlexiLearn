@@ -6,7 +6,6 @@ exports.startQuiz = async (req, res) => {
   try {
     const { course } = req.params;
 
-    // Check if student already has ongoing quiz
     let quiz = await MandatoryQuiz.findOne({
       student: req.user.id,
       course,
@@ -47,16 +46,45 @@ exports.startQuiz = async (req, res) => {
 };
 
 //  Submit answer and get next question (adaptive logic)
+// Submit answer and get next question (adaptive logic)
 exports.submitAnswer = async (req, res) => {
   try {
     const { quizId } = req.params;
     const { questionId, selectedAnswer } = req.body;
 
     const quiz = await MandatoryQuiz.findById(quizId);
-    if (!quiz || quiz.completed)
-      return res.status(400).json({ message: "Quiz not found or completed" });
+    if (!quiz) return res.status(400).json({ message: "Quiz not found" });
+    if (quiz.completed)
+      return res.status(400).json({ message: "Quiz already completed" });
 
+    // If this is the first call and no answer is sent, just return the first question
+    if (!questionId || !selectedAnswer) {
+      const attemptedIds = quiz.questions.map((q) => q.questionId);
+      const firstQuestion = await Question.findOne({
+        course: quiz.course,
+        level: quiz.currentDifficulty,
+        type: "mandatory",
+        _id: { $nin: attemptedIds },
+      });
+
+      if (!firstQuestion)
+        return res.json({ message: "No questions available." });
+
+      return res.json({
+        question: {
+          id: firstQuestion._id,
+          text: firstQuestion.questionText,
+          options: firstQuestion.options.map((opt) => opt.text),
+        },
+        difficulty: quiz.currentDifficulty,
+      });
+    }
+
+    // Normal answer submission
     const question = await Question.findById(questionId);
+    if (!question)
+      return res.status(400).json({ message: "Question not found" });
+
     const correctOption = question.options.find((opt) => opt.isCorrect);
     const isCorrect = correctOption.text === selectedAnswer;
 
@@ -68,16 +96,12 @@ exports.submitAnswer = async (req, res) => {
       isCorrect,
     });
 
-    // Adaptive logic
+    // Adaptive difficulty logic
     let nextDifficulty = quiz.currentDifficulty;
-    if (quiz.currentDifficulty === "easy" && isCorrect)
-      nextDifficulty = "medium";
-    else if (quiz.currentDifficulty === "medium" && isCorrect)
-      nextDifficulty = "hard";
-    else if (quiz.currentDifficulty === "hard" && !isCorrect)
-      nextDifficulty = "medium";
-    else if (quiz.currentDifficulty === "medium" && !isCorrect)
-      nextDifficulty = "easy";
+    if (quiz.currentDifficulty === "easy" && isCorrect) nextDifficulty = "medium";
+    else if (quiz.currentDifficulty === "medium" && isCorrect) nextDifficulty = "hard";
+    else if (quiz.currentDifficulty === "hard" && !isCorrect) nextDifficulty = "medium";
+    else if (quiz.currentDifficulty === "medium" && !isCorrect) nextDifficulty = "easy";
     // easy wrong stays easy, hard correct stays hard
 
     quiz.currentDifficulty = nextDifficulty;
@@ -88,6 +112,7 @@ exports.submitAnswer = async (req, res) => {
     const nextQuestion = await Question.findOne({
       course: quiz.course,
       level: nextDifficulty,
+      type: "mandatory",
       _id: { $nin: attemptedIds },
     });
 
@@ -95,6 +120,8 @@ exports.submitAnswer = async (req, res) => {
       quiz.completed = true;
       quiz.completedAt = new Date();
       await quiz.save();
+        await quiz.populate('questions.questionId');
+
 
       const totalCorrect = quiz.questions.filter((q) => q.isCorrect).length;
       return res.json({
@@ -106,7 +133,7 @@ exports.submitAnswer = async (req, res) => {
           selectedAnswer: q.selectedAnswer,
           isCorrect: q.isCorrect,
         })),
-        completedAt: quiz.completedAt, 
+        completedAt: quiz.completedAt,
       });
     }
 
@@ -119,9 +146,11 @@ exports.submitAnswer = async (req, res) => {
       difficulty: nextDifficulty,
     });
   } catch (err) {
+    console.error("Error in submitAnswer:", err);
     res.status(500).json({ message: err.message });
   }
 };
+
 
 //  Get completed quiz result
 exports.getResult = async (req, res) => {
