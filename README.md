@@ -52,17 +52,18 @@ Many students face challenges in assessing their understanding of subjects effec
 ### Backend Setup
 1. Navigate to the backend folder:
 cd backend
+
 npm install
+
 node server.js
 
 
 ### FRONTEND SETUP
 cd frontend
+
 npm install
+
 npm run dev
 
 
----
-
-## Project Structure
 
