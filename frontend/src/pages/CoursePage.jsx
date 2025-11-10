@@ -18,7 +18,6 @@ const CoursePage = () => {
       </p>
 
       <div className="course-card-container">
-        {/* Practice Quiz Card */}
         <div className="course-card">
           <h2>Practice Quiz</h2>
           <p>
@@ -30,7 +29,6 @@ const CoursePage = () => {
           </button>
         </div>
 
-        {/* Mandatory Quiz Card */}
         <div className="course-card">
           <h2>Mandatory Quiz</h2>
           <p>
@@ -45,7 +43,6 @@ const CoursePage = () => {
           </button>
         </div>
 
-        {/* Articles Card */}
         <div className="course-card">
           <h2>Articles</h2>
           <p>

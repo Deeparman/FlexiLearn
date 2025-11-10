@@ -1,7 +1,6 @@
 const PracticeQuiz = require("../model/PracticeQuiz");
 const Question = require("../model/Question");
 
-// Get questions for Practice Quiz
 exports.getQuestions = async (req, res) => {
   try {
     const { course, level, set } = req.params;
@@ -17,10 +16,9 @@ exports.getQuestions = async (req, res) => {
   }
 };
 
-//Submit Practice Quiz attempt
 exports.submitQuiz = async (req, res) => {
   try {
-    const { course, level, set, answers } = req.body; // answers: [{questionId, selectedAnswer}]
+    const { course, level, set, answers } = req.body;
 
     const questions = await Question.find({
       _id: { $in: answers.map((a) => a.questionId) },
@@ -53,7 +51,6 @@ exports.submitQuiz = async (req, res) => {
   }
 };
 
-//Get all attempts of a student
 exports.getHistory = async (req, res) => {
   try {
     const attempts = await PracticeQuiz.find({ student: req.user.id }).populate(

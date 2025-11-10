@@ -28,7 +28,7 @@ const Navbar = () => {
         ) : (
           <>
             <button
-            //   onClick={() => navigate("/profile")}
+              onClick={() => navigate("/student/profile")}
               className="nav-btn "
             >
               Profile

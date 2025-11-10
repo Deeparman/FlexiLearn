@@ -11,6 +11,7 @@ const questionRoutes = require("./routes/questionRoutes");
 const practiceQuizRoutes = require("./routes/practiceQuizRoutes");
 const mandatoryQuizRoutes = require("./routes/mandatoryQuizRoutes");
 const instructorRoutes = require("./routes/instructorRoutes");
+const UserProfile = require("./routes/profileRoutes");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/api/questions", questionRoutes);
 app.use("/api/practice-quiz", practiceQuizRoutes);
 app.use("/api/mandatory-quiz", mandatoryQuizRoutes);
 app.use("/api/instructor", instructorRoutes);
+app.use("/api/profile", UserProfile);
 
 
 const PORT = process.env.PORT || 3000;

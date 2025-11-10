@@ -52,10 +52,9 @@ exports.getQuestionsByCourseAndLevel = async (req, res) => {
         .json({ message: "Course, level, and set are required" });
     }
 
-    // Use aggregation to randomly pick 15 questions
     const questions = await Question.aggregate([
       { $match: { course, level, set: parseInt(set) } },
-      { $sample: { size: 15 } }, // randomly pick 15
+      { $sample: { size: 15 } }, 
     ]);
 
     if (!questions.length) {
@@ -64,7 +63,6 @@ exports.getQuestionsByCourseAndLevel = async (req, res) => {
         .json({ message: "No questions found for this set" });
     }
 
-    // Format questions (remove isCorrect for student view)
     const formattedQuestions = questions.map((q) => ({
       id: q._id,
       questionText: q.questionText,

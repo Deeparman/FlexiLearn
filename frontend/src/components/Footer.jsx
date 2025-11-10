@@ -5,8 +5,6 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-
-        {/* Left Section */}
         <div className="footer-brand">
           <h2 className="footer-logo">FlexiLearn</h2>
           <p className="footer-tagline">
@@ -14,7 +12,6 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Middle Section */}
         <div className="footer-links">
           <h3>Quick Links</h3>
           <ul>
@@ -25,7 +22,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Right Section */}
         <div className="footer-social">
           <h3>Follow Us</h3>
           <ul>
@@ -36,7 +32,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom line */}
       <div className="footer-bottom">
         <p> &copy; {new Date().getFullYear()} FlexiLearn. All rights reserved.</p>
       </div>

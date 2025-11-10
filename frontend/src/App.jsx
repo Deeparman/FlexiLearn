@@ -10,6 +10,7 @@ import MandatoryQuiz from "./pages/MandatoryQuiz";
 import MandatoryQuizIntro from "./pages/MandatoryQuizIntro";
 import CourseRead from "./pages/CourseRead";
 import InstructorHome from "./pages/InstructorHome";
+import StdProfile from "./pages/StdProfile";
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/read/:course" element={<CourseRead />} />
 
           <Route path="/instructor" element={<InstructorHome />} />
+          <Route path="/student/profile" element={<StdProfile />} />
         </Routes>
       </Router>
     </>

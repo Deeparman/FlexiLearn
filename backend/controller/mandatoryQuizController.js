@@ -1,7 +1,6 @@
 const MandatoryQuiz = require("../model/MandatoryQuiz");
 const Question = require("../model/Question");
 
-// Start a quiz
 exports.startQuiz = async (req, res) => {
   try {
     const { course } = req.params;
@@ -20,7 +19,6 @@ exports.startQuiz = async (req, res) => {
       await quiz.save();
     }
 
-    // Fetch first easy question not yet attempted
     const attemptedIds = quiz.questions.map((q) => q.questionId);
     const question = await Question.findOne({
       course,
@@ -45,8 +43,7 @@ exports.startQuiz = async (req, res) => {
   }
 };
 
-//  Submit answer and get next question (adaptive logic)
-// Submit answer and get next question (adaptive logic)
+
 exports.submitAnswer = async (req, res) => {
   try {
     const { quizId } = req.params;
@@ -56,8 +53,6 @@ exports.submitAnswer = async (req, res) => {
     if (!quiz) return res.status(400).json({ message: "Quiz not found" });
     if (quiz.completed)
       return res.status(400).json({ message: "Quiz already completed" });
-
-    // If this is the first call and no answer is sent, just return the first question
     if (!questionId || !selectedAnswer) {
       const attemptedIds = quiz.questions.map((q) => q.questionId);
       const firstQuestion = await Question.findOne({
@@ -80,7 +75,6 @@ exports.submitAnswer = async (req, res) => {
       });
     }
 
-    // Normal answer submission
     const question = await Question.findById(questionId);
     if (!question)
       return res.status(400).json({ message: "Question not found" });
@@ -88,7 +82,6 @@ exports.submitAnswer = async (req, res) => {
     const correctOption = question.options.find((opt) => opt.isCorrect);
     const isCorrect = correctOption.text === selectedAnswer;
 
-    // Store attempt
     quiz.questions.push({
       questionId,
       selectedAnswer,
@@ -96,18 +89,15 @@ exports.submitAnswer = async (req, res) => {
       isCorrect,
     });
 
-    // Adaptive difficulty logic
     let nextDifficulty = quiz.currentDifficulty;
     if (quiz.currentDifficulty === "easy" && isCorrect) nextDifficulty = "medium";
     else if (quiz.currentDifficulty === "medium" && isCorrect) nextDifficulty = "hard";
     else if (quiz.currentDifficulty === "hard" && !isCorrect) nextDifficulty = "medium";
     else if (quiz.currentDifficulty === "medium" && !isCorrect) nextDifficulty = "easy";
-    // easy wrong stays easy, hard correct stays hard
 
     quiz.currentDifficulty = nextDifficulty;
     await quiz.save();
 
-    // Fetch next question
     const attemptedIds = quiz.questions.map((q) => q.questionId);
     const nextQuestion = await Question.findOne({
       course: quiz.course,
@@ -152,7 +142,6 @@ exports.submitAnswer = async (req, res) => {
 };
 
 
-//  Get completed quiz result
 exports.getResult = async (req, res) => {
   try {
     const quiz = await MandatoryQuiz.findById(req.params.quizId).populate(

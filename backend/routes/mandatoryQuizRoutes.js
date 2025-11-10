@@ -3,26 +3,8 @@ const router = express.Router();
 const mandatoryQuizController = require('../controller/mandatoryQuizController');
 const { protect, authorizeRoles } = require('../middleware/authMiddleware');
 
-// Student-only routes
-router.post(
-  '/start/:course',
-  protect,
-  authorizeRoles('student'),
-  mandatoryQuizController.startQuiz
-);
-
-router.post(
-  '/answer/:quizId',
-  protect,
-  authorizeRoles('student'),
-  mandatoryQuizController.submitAnswer
-);
-
-router.get(
-  '/result/:quizId',
-  protect,
-  authorizeRoles('student'),
-  mandatoryQuizController.getResult
-);
+router.post( '/start/:course', protect, authorizeRoles('student'), mandatoryQuizController.startQuiz);
+router.post( '/answer/:quizId', protect, authorizeRoles('student'), mandatoryQuizController.submitAnswer );
+router.get( '/result/:quizId', protect, authorizeRoles('student'), mandatoryQuizController.getResult);
 
 module.exports = router;

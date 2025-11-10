@@ -11,8 +11,6 @@ const { protect, instructorOnly } = require("../middleware/authMiddleware");
 
 router.post("/add", protect, instructorOnly, addQuestion);
 router.get("/my-questions", protect, instructorOnly, getInstructorQuestions);
-
-// Student route
 router.get("/:course/:level/:set", protect, getQuestionsByCourseAndLevel);
 
 module.exports = router;

@@ -16,15 +16,13 @@ const MandatoryQuiz = () => {
   const [quizOver, setQuizOver] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Load first question (comes from MandatoryQuizIntro -> start API)
   useEffect(() => {
     const fetchFirstQuestion = async () => {
       try {
         const token = localStorage.getItem("token");
-        // No GET /result call here to avoid 400
         const res = await API.post(
           `/mandatory-quiz/answer/${quizId}`,
-          {}, // First POST with empty body to fetch first question
+          {}, 
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -45,7 +43,6 @@ const MandatoryQuiz = () => {
     fetchFirstQuestion();
   }, [quizId, navigate]);
 
-  // Timer countdown
   useEffect(() => {
     if (quizOver) return;
     if (timeLeft <= 0) {
